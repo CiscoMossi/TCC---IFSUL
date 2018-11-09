@@ -2,11 +2,10 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   card: { 
-    flex: 1, 
     borderRadius: 15, 
-    maxHeight: 200, 
     backgroundColor: 'white', 
-    padding: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
@@ -16,8 +15,8 @@ export default StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.4,
   },
-  content: { 
-    flex: 1 
+  content: {
+    marginBottom: 20
   },
   textContent: { 
     fontSize: 16,
@@ -29,6 +28,7 @@ export default StyleSheet.create({
   },
   option: {
     flex: 1,
+    paddingVertical: 5,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
