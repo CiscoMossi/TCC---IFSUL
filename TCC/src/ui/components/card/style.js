@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   card: { 
+    marginVertical: 5,
     borderRadius: 15, 
     backgroundColor: 'white', 
     paddingVertical: 15,
@@ -16,7 +17,8 @@ export default StyleSheet.create({
     shadowOpacity: 0.4,
   },
   content: {
-    marginBottom: 20
+    marginBottom: 20,
+    alignItems: 'center'
   },
   textContent: { 
     fontSize: 16,

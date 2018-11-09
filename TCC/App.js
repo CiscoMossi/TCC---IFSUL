@@ -16,6 +16,10 @@ export default class App extends Component {
       <DBSafeAreaView>
         <View style={styles.container}>
           <DBCard />
+          <DBCard />
+          <DBCard />
+          <DBCard />
+          <DBCard />
         </View>
       </DBSafeAreaView>
     )
