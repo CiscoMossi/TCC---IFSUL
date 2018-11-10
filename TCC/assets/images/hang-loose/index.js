@@ -1,0 +1,1 @@
+export const HANG_LOOSE = require('./hang-loose.png')

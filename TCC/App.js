@@ -1,28 +1,62 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, { Component } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { DBSafeAreaView, DBHeader ,DBMenu } from './src/ui/components'
+import { HomeScreen } from './src/ui/screens'
 
-import React, {Component} from 'react'
-import {Platform, StyleSheet, Text, View} from 'react-native'
+import { BREATHE } from './assets/images'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-})
+const menuItems = [
+  { 
+    id: 0, 
+    icon: 'home', 
+    label: 'Home',
+    title: 'Home',
+    content: <HomeScreen />,
+  }, 
+  { 
+    id: 1, 
+    images: {
+      ...BREATHE,
+      style: {
+        width: 35,
+        height: 35,
+      }
+    },
+    label: 'Respire', 
+    title: 'Respire',
+  },
+  { 
+    id: 2, 
+    icon: 'search', 
+    label: 'Encontrar', 
+    title: 'Encontrar',
+  },
+  { 
+    id: 3, 
+    icon: 'user', 
+    label: 'Perfil', 
+    title: 'Perfil',
+  },
+]
 
 export default class App extends Component {
+  state = {
+    currentMenu: menuItems[0]
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+      <View style={{ flex: 1 }}>
+        <DBSafeAreaView>
+          <View style={styles.container}>
+            { this.state.currentMenu.content }
+          </View>
+        </DBSafeAreaView>
+        <DBMenu 
+          onMenuOptionPress={option => this.setState({ currentMenu: option })} 
+          activeMenuId={this.state.currentMenu.id} 
+          menus={menuItems} 
+        />
       </View>
     )
   }
@@ -31,18 +65,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    marginHorizontal: 15,
   },
 })
