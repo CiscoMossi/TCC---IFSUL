@@ -1,2 +1,6 @@
 export { DBSafeAreaView } from './safe-area-view'
 export { DBCard } from './card'
+export { DBButton } from './button'
+export { DBPlayer } from './player'
+export { DBMenu } from './menu'
+export { DBHeader } from './header'

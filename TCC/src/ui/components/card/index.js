@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { DBPlayer } from '../player'
 
 import styles from './style'
 
@@ -8,33 +9,34 @@ const TextContent = ({ text }) => (
   <Text style={styles.textContent}>{ text }</Text>
 )
 
-const Player = ({ link }) => (
-  <View style={{ width: 250, height: 20, backgroundColor: 'red', padding: 4 }}>
-    <View style={{ flex: 1, width: '50%', backgroundColor: 'blue' }} />
-  </View>
-)
+onLikePress = () => {}
+onCommentPress = () => {}
+onSharePress = () => {}
 
 const Options = ({  }) => (
   <View style={styles.options}>
-    <View style={styles.option}>
+    <TouchableOpacity onPress={onLikePress} style={styles.option}>
       <Icon size={25} name="hand-o-up" />
       <Text style={styles.optionValue}>10</Text>
-    </View>
-    <View style={styles.option}>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={onCommentPress} style={styles.option}>
       <Icon size={25} name="hand-o-up" />
       <Text style={styles.optionValue}>10</Text>
-    </View><View style={styles.option}>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={onSharePress} style={styles.option}>
       <Icon size={25} name="hand-o-up" />
       <Text style={styles.optionValue}>10</Text>
-    </View>
+    </TouchableOpacity>
   </View>
 )
 
-export const DBCard = ({ props }) => (
+export const DBCard = ({ link, text }) => (
   <View style={styles.card}>
     <View style={styles.content}>
-      <Player />
-      <TextContent text="Conteudo do card contando minha experiencia com meditação" />
+      { link 
+        ? <DBPlayer link={link} />
+        : <TextContent text={text} />
+      }
     </View>
     <Options />
   </View>

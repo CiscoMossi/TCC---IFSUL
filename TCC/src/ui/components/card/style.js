@@ -4,8 +4,9 @@ export default StyleSheet.create({
   card: { 
     marginVertical: 5,
     borderRadius: 15, 
-    backgroundColor: 'white', 
-    paddingVertical: 15,
+    backgroundColor: 'white',
+    paddingTop: 25,
+    paddingBottom: 15,
     paddingHorizontal: 20,
     shadowColor: '#000000',
     shadowOffset: {
