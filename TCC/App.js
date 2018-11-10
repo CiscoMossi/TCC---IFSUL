@@ -3,31 +3,39 @@ import { StyleSheet, View } from 'react-native'
 import { DBSafeAreaView, DBHeader ,DBMenu } from './src/ui/components'
 import { HomeScreen } from './src/ui/screens'
 
+import { BREATHE } from './assets/images'
+
 const menuItems = [
   { 
     id: 0, 
-    icon: 'bug', 
-    label: 'Batata',
+    icon: 'home', 
+    label: 'Home',
     title: 'Home',
     content: <HomeScreen />,
   }, 
   { 
     id: 1, 
-    icon: 'bug', 
-    label: 'Batata', 
-    title: 'Teste',
+    images: {
+      ...BREATHE,
+      style: {
+        width: 35,
+        height: 35,
+      }
+    },
+    label: 'Respire', 
+    title: 'Respire',
   },
   { 
     id: 2, 
-    icon: 'bug', 
-    label: 'Batata', 
-    title: 'Teste',
+    icon: 'search', 
+    label: 'Encontrar', 
+    title: 'Encontrar',
   },
   { 
     id: 3, 
-    icon: 'bug', 
-    label: 'Batata', 
-    title: 'Teste',
+    icon: 'user', 
+    label: 'Perfil', 
+    title: 'Perfil',
   },
 ]
 
@@ -39,7 +47,6 @@ export default class App extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <DBHeader title={this.state.currentMenu.title} />
         <DBSafeAreaView>
           <View style={styles.container}>
             { this.state.currentMenu.content }

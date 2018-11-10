@@ -1,17 +1,20 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-  container: { 
-    borderTopColor: 'rgba(221, 221, 221, 0.08)',
+  wrapper: {
+    borderTopColor: 'rgb(221, 221, 221)',
     borderTopWidth: 2,
     position: 'absolute', 
     bottom: 0, 
     minHeight: 55, 
     width: '100%', 
-    backgroundColor: '#ddd',
+    backgroundColor: '#e8e8e8',
+    paddingVertical: 10,
+    alignItems: 'center'
+  },
+  options: { 
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    paddingVertical: 10,
   },
   option: {
     justifyContent: 'center',
@@ -19,6 +22,25 @@ export default StyleSheet.create({
     flex: 1
   },
   active: {
-    color: 'red'
-  }
+    color: '#D31A82'
+  },
+  buttonWrapper: {
+    position: 'absolute',
+    top: -30,
+  },
+  button: {
+    elevation: 3,
+    zIndex: 200,
+    padding: 15,
+    maxHeight: 50,
+    maxWidth: 50,
+    borderRadius: 100, 
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonContent: { 
+    fontSize: 35, 
+    color: '#FFFFFF', 
+    transform: [{ translateY: -2 }] 
+  },
 })

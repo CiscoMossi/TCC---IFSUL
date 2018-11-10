@@ -12,11 +12,11 @@ export default StyleSheet.create({
     borderRadius: 10, 
     marginRight: 20, 
     backgroundColor: '#8E39AA', 
-    padding: 8
+    padding: 8,
+    paddingRight: 15
   },
   innerPercentage: { 
     flex: 1, 
-    width: '50%', 
     borderTopLeftRadius: 6,
     borderBottomLeftRadius: 6, 
     justifyContent: 'center', 
@@ -35,7 +35,6 @@ export default StyleSheet.create({
     width: 50, 
     height: 50, 
     borderRadius: 25, 
-    backgroundColor:'purple', 
     alignItems: 'center', 
     justifyContent: 'center',
   }

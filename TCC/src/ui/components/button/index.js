@@ -4,8 +4,8 @@ import LinearGradient from 'react-native-linear-gradient'
 import { gradientColors } from '../default'
 
 import styles from './style'
-export const DBButton = ({ onPress, children, style }) => (
-  <TouchableOpacity style={styles.wrapper} onPress={onPress}>
+export const DBButton = ({ onPress, children, style, ...props }) => (
+  <TouchableOpacity { ...props } style={styles.wrapper} onPress={onPress}>
     <LinearGradient 
       style={[styles.button, style]} 
       start={{ x: 0.75, y: 0.25 }} 

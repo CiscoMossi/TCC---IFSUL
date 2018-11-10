@@ -40,4 +40,30 @@ export default StyleSheet.create({
     marginLeft: 10,
     textAlign: 'center' 
   },
+  hangLoose: { 
+    height: 35, 
+    width: 35 
+  },
+  postInfoWrapper: { 
+    flex: 1, 
+    marginBottom: 5, 
+    flexDirection: 'row', 
+    justifyContent: 'space-between' 
+  },
+  userInfo: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-around' 
+  },
+  userImage: { 
+    width: 50, 
+    height: 50, 
+    borderRadius: 100, 
+    borderColor: '#ddd', 
+    borderWidth: 1 
+  },
+  userName: { 
+    marginLeft: 15, 
+    fontSize: 18 
+  },
 })
