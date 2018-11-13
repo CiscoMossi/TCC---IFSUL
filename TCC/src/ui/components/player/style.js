@@ -7,7 +7,7 @@ export default StyleSheet.create({
     justifyContent: 'center' 
   },
   percentage: { 
-    width: 250, 
+    flex: 1,
     height: 20, 
     borderRadius: 10, 
     marginRight: 20, 
