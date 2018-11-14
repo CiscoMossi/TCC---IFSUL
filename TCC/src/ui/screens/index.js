@@ -1,1 +1,8 @@
 export { HomeScreen } from './home'
+export { LoggedScreen } from './logged'
+export { SignUpScreen } from './sign-up'
+export { LoginScreen } from './login'
+export { ProfileScreen } from './profile'
+export { BreatheScreen } from './breathe'
+export { RecordScreen } from './record'
+export { SearchScreen } from './search'
