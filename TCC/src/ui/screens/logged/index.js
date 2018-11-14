@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { DBSafeAreaView, DBMenu } from '../../components'
 import { HomeScreen } from '../home'
+import { ProfileScreen } from '../profile'
+import { BreatheScreen } from '../breathe'
+import { SearchScreen } from '../search'
 
 import { BREATHE } from '../../../../assets/images'
 
@@ -24,18 +27,21 @@ const menuItems = [
     },
     label: 'Respire', 
     title: 'Respire',
+    content: <BreatheScreen />
   },
   { 
     id: 2, 
     icon: 'search', 
     label: 'Encontrar', 
     title: 'Encontrar',
+    content: <SearchScreen />
   },
   { 
     id: 3, 
     icon: 'user', 
     label: 'Perfil', 
     title: 'Perfil',
+    content: <ProfileScreen />
   },
 ]
 

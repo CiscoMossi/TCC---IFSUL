@@ -7,7 +7,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({ logged: false })
+    this.setState({ logged: true })
   }
 
   render() {
