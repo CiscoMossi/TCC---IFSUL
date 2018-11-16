@@ -1,16 +1,60 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { DBButton } from '../button'
 
 import styles from './style'
+
+import Sound from 'react-native-sound'
 
 export class DBPlayer extends Component {
   state = {
     playing: false,
   }
 
-  handlePlayButton = () => this.setState({ playing: !this.state.playing })
+  play = () => {
+    this.sound.play((success) => {
+      if (success) {
+        this.setState({ playing: false })
+      }
+    })
+  }
+
+  handlePlay = () => {
+    setTimeout(() => {
+      if (Platform.OS === 'ios') {
+        Sound.enable(true);
+      }
+
+      if (this.sound) {
+        this.play()
+        return
+      }
+
+      this.sound = new Sound(this.props.link, '', (error) => {
+        if (error) {
+          alert(error)
+        } else {
+          this.sound.setVolume(1)
+          this.play()
+        }
+      })
+    }, 100)
+  }
+
+  handlePause = () => {
+    this.sound.pause()
+  }
+
+  handlePlayButton = () => {
+    if (!this.state.playing) {
+      this.handlePlay()
+    } else {
+      this.handlePause()
+    }
+
+    this.setState({ playing: !this.state.playing })
+  }
 
   render() {
     const iconName = this.state.playing ? "stop" : "play"

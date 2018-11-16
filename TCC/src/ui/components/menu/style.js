@@ -26,7 +26,9 @@ export default StyleSheet.create({
   },
   buttonWrapper: {
     position: 'absolute',
-    top: -30,
+    bottom: 50,
+    left: '50%',
+    transform: [{ translateX: -25 }] 
   },
   button: {
     elevation: 3,
@@ -42,5 +44,22 @@ export default StyleSheet.create({
     fontSize: 35, 
     color: '#FFFFFF', 
     transform: [{ translateY: -2 }] 
+  },
+  buttonOptions: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    width: 75, 
+    height: 25,
+    left: -15,
+    top: 25,
+    opacity: 0,
+  },
+  visibleButtonOptions: {
+    top: -10, 
+    opacity: 1
+  },
+  buttonOption: { 
+    maxWidth: 25, 
+    borderRadius: 15 
   },
 })
