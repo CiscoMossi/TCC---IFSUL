@@ -26,21 +26,45 @@ export default StyleSheet.create({
   },
   buttonWrapper: {
     position: 'absolute',
-    top: -30,
+    bottom: 50,
+    left: '50%',
+    transform: [{ translateX: -25 }] 
   },
   button: {
     elevation: 3,
     zIndex: 200,
-    padding: 15,
-    maxHeight: 50,
-    maxWidth: 50,
-    borderRadius: 100, 
+    minHeight: 50,
+    minWidth: 50,
+    borderRadius: 100,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 0,
   },
   buttonContent: { 
     fontSize: 35, 
     color: '#FFFFFF', 
-    transform: [{ translateY: -2 }] 
+    transform: [{ translateY: -2 }],
+    flexShrink: 1,
+    textAlignVertical: 'center'
+  },
+  buttonOptions: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    width: 85, 
+    height: 35,
+    left: -20,
+    top: 25,
+    opacity: 0,
+  },
+  visibleButtonOptions: {
+    top: -10, 
+    opacity: 1
+  },
+  buttonOption: { 
+    width: 35, 
+    borderRadius: 30,
+    padding: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 })
