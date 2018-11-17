@@ -33,24 +33,26 @@ export default StyleSheet.create({
   button: {
     elevation: 3,
     zIndex: 200,
-    padding: 15,
-    maxHeight: 50,
-    maxWidth: 50,
-    borderRadius: 100, 
+    minHeight: 50,
+    minWidth: 50,
+    borderRadius: 100,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 0,
   },
   buttonContent: { 
     fontSize: 35, 
     color: '#FFFFFF', 
-    transform: [{ translateY: -2 }] 
+    transform: [{ translateY: -2 }],
+    flexShrink: 1,
+    textAlignVertical: 'center'
   },
   buttonOptions: { 
     flexDirection: 'row', 
     justifyContent: 'space-between', 
-    width: 75, 
-    height: 25,
-    left: -15,
+    width: 85, 
+    height: 35,
+    left: -20,
     top: 25,
     opacity: 0,
   },
@@ -59,7 +61,10 @@ export default StyleSheet.create({
     opacity: 1
   },
   buttonOption: { 
-    maxWidth: 25, 
-    borderRadius: 15 
+    width: 35, 
+    borderRadius: 30,
+    padding: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 })

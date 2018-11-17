@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { DBSafeAreaView, DBMenu } from '../../components'
+import { View, TouchableOpacity } from 'react-native'
+import { DBSafeAreaView, DBMenu, DBModal } from '../../components'
 import { HomeScreen } from '../home'
 import { ProfileScreen } from '../profile'
 import { BreatheScreen } from '../breathe'
 import { SearchScreen } from '../search'
+import { RecordScreen } from '../record'
+
+import Icon from 'react-native-vector-icons/FontAwesome5'
+
+import styles from './style'
 
 import { BREATHE } from '../../../../assets/images'
 
@@ -47,7 +52,8 @@ const menuItems = [
 
 export class LoggedScreen extends Component {
   state = {
-    currentMenu: menuItems[0]
+    currentMenu: menuItems[0],
+    modal: null,
   }
 
   render() {
@@ -62,15 +68,18 @@ export class LoggedScreen extends Component {
           onMenuOptionPress={option => this.setState({ currentMenu: option })} 
           activeMenuId={this.state.currentMenu.id} 
           menus={menuItems} 
+          onLeftButtonOptionPress={() => this.setState({ modal: <RecordScreen /> })}
+          onRightButtonOptionPress={() => {}}
         />
+        <DBModal isVisible={!!this.state.modal}>
+          <View style={styles.modal}>
+            <TouchableOpacity style={styles.back} onPress={() => this.setState({ modal: null })}>
+              <Icon name="long-arrow-alt-left" size={50} style={styles.icon} />
+            </TouchableOpacity>
+            { this.state.modal }
+          </View>
+        </DBModal>
       </View>
     )
   }
 } 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginHorizontal: 15,
-  },
-})

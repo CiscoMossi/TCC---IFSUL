@@ -10,13 +10,25 @@ import Sound from 'react-native-sound'
 export class DBPlayer extends Component {
   state = {
     playing: false,
+    audioPercentage: 0
   }
 
   play = () => {
-    this.sound.play((success) => {
+    this.sound.play(success => {
       if (success) {
-        this.setState({ playing: false })
+        clearInterval(this.interval)
+        this.sound.setCurrentTime(0)
+        this.setState({ playing: false, audioPercentage: 0 })
+        return
       }
+    })
+
+    this.interval = setInterval(() => {
+      this.sound.getCurrentTime(currentTime => {
+        const audioPercentage = currentTime/this.sound.getDuration()*100
+
+        this.setState({ audioPercentage })
+      })
     })
   }
 
@@ -44,6 +56,7 @@ export class DBPlayer extends Component {
 
   handlePause = () => {
     this.sound.pause()
+    clearInterval(this.interval)
   }
 
   handlePlayButton = () => {
@@ -57,12 +70,14 @@ export class DBPlayer extends Component {
   }
 
   render() {
-    const iconName = this.state.playing ? "stop" : "play"
+    const { playing, audioPercentage } = this.state
+
+    const iconName = playing ? "stop" : "play"
 
     return (
       <View style={styles.wrapper}>
         <View style={styles.percentage}>
-          <View style={[styles.innerPercentage, { width: this.props.audioPercentage }]}>
+          <View style={[styles.innerPercentage, { width: `${audioPercentage}%` }]}>
             <View style={styles.percentagePoint} />
           </View>
         </View>

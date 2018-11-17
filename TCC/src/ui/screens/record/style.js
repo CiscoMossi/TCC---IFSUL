@@ -29,4 +29,19 @@ export default StyleSheet.create({
   text: { 
     fontSize: 20 
   },
+  actionButtonsContainer: { 
+    width,
+    marginTop: 20,
+    flexDirection: 'row', 
+    justifyContent: 'space-around', 
+  },
+  actionButtonWrapper: { 
+    padding: 15, 
+    borderRadius: 7, 
+  },
+  actionButtonText: { 
+    fontWeight: 'bold', 
+    fontSize: 18, 
+    color: '#fff', 
+  },
 })

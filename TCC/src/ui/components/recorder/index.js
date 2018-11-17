@@ -2,7 +2,13 @@ import { AudioRecorder, AudioUtils } from 'react-native-audio'
 import moment from 'moment'
 import Permissions from 'react-native-permissions'
 
+import fs from 'react-native-fs'
+
 export class DBRecorder {
+  constructor(onProgress) {
+    AudioRecorder.onProgress = onProgress
+  }
+  
   prepareRecording() {
     this.recordingName = moment().format('YYYYMMDDHHmmss') + '.aac'
     this.audioPath = AudioUtils.DocumentDirectoryPath + '/' + this.recordingName
@@ -27,6 +33,11 @@ export class DBRecorder {
 
   //returns file path
   async stop() {
-    return await AudioRecorder.stopRecording()
+    await AudioRecorder.stopRecording()
+    return this.audioPath
+  }
+
+  async deleteAudio() {
+    return await fs.unlink(this.audioPath)
   }
 }

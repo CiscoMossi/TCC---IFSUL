@@ -1,47 +1,90 @@
 import React from 'react'
-import { View, Text, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { gradientColors } from '../default'
 import styles from './style'
-import { DBRecorder } from '../../components'
+import { DBRecorder, DBPlayer } from '../../components'
+import { getCurrentTime } from '../../../core'
+
+const Button = ({ onPress, text, color }) => (
+  <TouchableOpacity 
+    style={[styles.actionButtonWrapper, { backgroundColor: color }]} 
+    onPress={onPress}
+  >
+    <Text style={styles.actionButtonText}>{ text }</Text>
+  </TouchableOpacity>
+)
 
 export class RecordScreen extends React.Component {
   state = {
     recording: false,
+    currentTime: 0,
+    confirmAudio: false,
   }
 
-  recorder = new DBRecorder()
+  handleOnProgress = ({ currentTime }) => {
+    if(currentTime > 0) {
+      this.setState({ currentTime })
+    }
+  }
+
+  recorder = new DBRecorder(this.handleOnProgress)
 
   handleRecording = async () => {
-    if (!this.state.recording) {
+    const { recording, currentTime } = this.state
+
+    if (!recording) {
       await this.recorder.record()
     } else {
-      const path = await this.recorder.stop()
-      const formData = new FormData()
-
-      formData.append('audio', {
-        uri: path,
-        name: 'teste.aac',
-        type: 'audio/x-aac'
-      })
-
-      console.log(formData)
-
-      //send to api
+      this.path = await this.recorder.stop()
     }
 
-    this.setState({ recording: !this.state.recording })
+    const newState = {
+      currentTime: !recording ? currentTime : 0,
+      recording: !recording,
+      confirmAudio: recording,
+    }
+
+    this.setState(newState)
   }
 
-  render() {
-    const iconName = this.state.recording ? 'stop' : 'microphone'
-    const action = this.state.recording ? 'parar a gravação' : 'gravar'
+  onConfirm = async () => {
+    const formData = new FormData()
 
+    formData.append('audio', {
+      uri: this.path,
+      name: 'teste.aac',
+      type: 'audio/x-aac'
+    })
+
+    //send to api
+  }
+
+  handleAction = async (confirm) => {
+    confirm && await this.onConfirm()
+
+    this.recorder.deleteAudio()
+    this.setState({ confirmAudio: false })
+  }
+
+  renderRecorder = () => {
+    const { recording, currentTime } = this.state
+
+    let iconName = 'microphone'
+    let action = 'gravar'
+
+    if (recording) {
+      iconName = 'stop'
+      action = 'parar a gravação'
+    }
+
+    const duration = getCurrentTime(currentTime)
+    
     return (
       <View style={styles.wrapper}>
         <Text style={styles.text}>Aperte para {action}</Text>
-
+    
         <TouchableWithoutFeedback onPress={this.handleRecording}>
           <LinearGradient 
             style={styles.ball}
@@ -53,9 +96,27 @@ export class RecordScreen extends React.Component {
             <Icon name={iconName} size={110} color="#fff" />
           </LinearGradient>
         </TouchableWithoutFeedback>
-
-        <Text style={styles.text}>00:00</Text>
+    
+        <Text style={styles.text}>{ duration }</Text>
       </View>
+    )
+  }
+
+  renderConfirmBox = () => (
+    <View style={[styles.wrapper, { paddingHorizontal: 20 }]}>
+      <DBPlayer link={this.path} />
+      <View style={styles.actionButtonsContainer}>
+        <Button text="CANCELAR" color="#dd4444" onPress={() => this.handleAction()} />
+        <Button text="CONFIRMAR" color="#007f57" onPress={() => this.handleAction(true)} />
+      </View>
+    </View>
+  )
+
+  render() {
+    return (    
+      this.state.confirmAudio 
+        ? this.renderConfirmBox() 
+        : this.renderRecorder()
     )
   }
 }
