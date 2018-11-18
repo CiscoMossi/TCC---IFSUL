@@ -7,7 +7,7 @@ export const DBModal = ({ isVisible, children, style, ...props }) => {
   }
 
   return (
-    <Modal style={[{ margin: 0}, style]} isVisible={isVisible} { ...props }>
+    <Modal animationIn="slideInLeft" style={[{ margin: 0}, style]} isVisible={isVisible} { ...props }>
       { children }
     </Modal>
   )

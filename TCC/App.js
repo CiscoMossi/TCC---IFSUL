@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import { LoggedScreen, SignUpScreen, LoginScreen } from './src/ui/screens'
+import { RootScreen } from './src/ui/screens'
+
+import Reactotron from 'reactotron-react-native'
+
+Reactotron.configure()
+  .useReactNative()
+  .connect()
+
 export default class App extends Component {
-  state = {
-    logged: false,
-  }
-
-  componentDidMount() {
-    this.setState({ logged: true })
-  }
-
   render() {
     return (
       <View style={{ flex: 1 }}>
-        { this.state.logged
-          ? <LoggedScreen />
-          : <LoginScreen />
-        }
+        <RootScreen />
       </View>
     )
   }

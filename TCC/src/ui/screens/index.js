@@ -1,3 +1,4 @@
+export { RootScreen } from './base'
 export { HomeScreen } from './home'
 export { LoggedScreen } from './logged'
 export { SignUpScreen } from './sign-up'

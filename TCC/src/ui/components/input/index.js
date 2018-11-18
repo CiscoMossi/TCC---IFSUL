@@ -41,7 +41,7 @@ export class DBTextInput extends React.PureComponent {
   }
 
   isFieldEmpty = () =>
-    this.props.isForm ? !this.props.input.value : !this.props.value
+    !this.props.value
 
   isInputInvalid = () => {
     return this.props.isForm && this.props.meta.error && this.props.meta.touched
