@@ -11,6 +11,7 @@ const httpClient = axios.create({
 
 export class HttpService {
   static AUTHORIZATION_NAME = 'x-access-token'
+  static USER_ID = 'id'
 
   static getHeader = key => {
     return httpClient.defaults.headers.common[key]
@@ -25,13 +26,14 @@ export class HttpService {
     delete httpClient.defaults.headers.common[key]
   }
 
-  static registerToken(token) {
+  static registerToken(token, id) {
     StorageService.setString(HttpService.AUTHORIZATION_NAME, token)
-    HttpService.setHeader(HttpService.AUTHORIZATION_NAME, token)
+    StorageService.setString(HttpService.USER_ID, id)
   }
 
   static removeToken() {
-    
+    StorageService.remove(HttpService.AUTHORIZATION_NAME)
+    StorageService.remove(HttpService.USER_ID)
   }
 
   static authorizedRequest = async ({ headers = {}, ...object }) => {

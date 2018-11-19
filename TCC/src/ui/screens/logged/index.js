@@ -6,6 +6,9 @@ import { ProfileScreen } from '../profile'
 import { BreatheScreen } from '../breathe'
 import { SearchScreen } from '../search'
 import { RecordScreen } from '../record'
+import { CreatePostScreen } from '../create-post'
+
+import { PostService } from '../../../services'
 
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -13,13 +16,15 @@ import styles from './style'
 
 import { BREATHE } from '../../../../assets/images'
 
-const menuItems = [
+const postService = new PostService()
+
+const getMenuItems = props => [
   { 
     id: 0, 
     icon: 'home', 
     label: 'Home',
     title: 'Home',
-    content: <HomeScreen />,
+    content: <HomeScreen { ...props } />,
   }, 
   { 
     id: 1, 
@@ -32,28 +37,43 @@ const menuItems = [
     },
     label: 'Respire', 
     title: 'Respire',
-    content: <BreatheScreen />
+    content: <BreatheScreen { ...props } />
   },
   { 
     id: 2, 
     icon: 'search', 
     label: 'Encontrar', 
     title: 'Encontrar',
-    content: <SearchScreen />
+    content: <SearchScreen { ...props } />
   },
   { 
     id: 3, 
     icon: 'user', 
     label: 'Perfil', 
     title: 'Perfil',
-    content: <ProfileScreen />
+    content: <ProfileScreen { ...props } />
   },
 ]
 
 export class LoggedScreen extends Component {
   state = {
-    currentMenu: menuItems[0],
+    currentMenu: getMenuItems(this.props)[0],
     modal: null,
+  }
+
+  createPost = (title, content) => {
+    postService.createPost(title, content)
+      .then(result => {
+        this.setState({ modal: null })
+      })
+  }
+
+  createMeditation = async (title, path, name) => {
+    const { data } = await postService.createMeditation(title)
+    const result = await postService.uploadMeditation({ path, name })
+    this.setState({ modal: null })
+
+    return
   }
 
   render() {
@@ -67,9 +87,9 @@ export class LoggedScreen extends Component {
         <DBMenu 
           onMenuOptionPress={option => this.setState({ currentMenu: option })} 
           activeMenuId={this.state.currentMenu.id} 
-          menus={menuItems} 
-          onLeftButtonOptionPress={() => this.setState({ modal: <RecordScreen /> })}
-          onRightButtonOptionPress={() => {}}
+          menus={getMenuItems(this.props)} 
+          onLeftButtonOptionPress={() => this.setState({ modal: <RecordScreen onConfirm={this.createMeditation} /> })}
+          onRightButtonOptionPress={() => this.setState({ modal: <CreatePostScreen submit={this.createPost} /> })}
         />
         <DBModal isVisible={!!this.state.modal}>
           <View style={styles.modal}>

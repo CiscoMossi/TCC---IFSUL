@@ -1,7 +1,7 @@
 import { HttpService } from '../http'
 
 export class BaseService {
-  constructor(baseUrl) {
+  constructor(baseUrl = 'http://192.168.0.46:3000') {
     this.baseUrl = baseUrl
   }
 

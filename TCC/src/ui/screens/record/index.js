@@ -3,9 +3,10 @@ import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-na
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { gradientColors } from '../default'
-import styles from './style'
-import { DBRecorder, DBPlayer } from '../../components'
+import { DBRecorder, DBPlayer, DBTextInput } from '../../components'
 import { getCurrentTime } from '../../../core'
+
+import styles from './style'
 
 const Button = ({ onPress, text, color }) => (
   <TouchableOpacity 
@@ -16,11 +17,25 @@ const Button = ({ onPress, text, color }) => (
   </TouchableOpacity>
 )
 
+const Input = ({ onChangeText, label, value }) => (
+  <DBTextInput 
+    containerStyle={styles.inputStyle} 
+    labelStyle={styles.labelStyle} 
+    onFocusColor="#8E39AA" 
+    onBlurBorderColor="#8E39AA" 
+    float 
+    onChangeText={onChangeText} 
+    label={label}
+    value={value}
+  />
+)
+
 export class RecordScreen extends React.Component {
   state = {
     recording: false,
     currentTime: 0,
     confirmAudio: false,
+    title: 'Batata',
   }
 
   handleOnProgress = ({ currentTime }) => {
@@ -38,6 +53,7 @@ export class RecordScreen extends React.Component {
       await this.recorder.record()
     } else {
       this.path = await this.recorder.stop()
+      this.fileName = this.recorder.recordingName
     }
 
     const newState = {
@@ -49,23 +65,10 @@ export class RecordScreen extends React.Component {
     this.setState(newState)
   }
 
-  onConfirm = async () => {
-    const formData = new FormData()
-
-    formData.append('audio', {
-      uri: this.path,
-      name: 'teste.aac',
-      type: 'audio/x-aac'
-    })
-
-    //send to api
-  }
-
   handleAction = async (confirm) => {
-    confirm && await this.onConfirm()
+    confirm && await this.props.onConfirm(this.state.title, this.path, this.fileName)
 
     this.recorder.deleteAudio()
-    this.setState({ confirmAudio: false })
   }
 
   renderRecorder = () => {
@@ -104,6 +107,11 @@ export class RecordScreen extends React.Component {
 
   renderConfirmBox = () => (
     <View style={[styles.wrapper, { paddingHorizontal: 20 }]}>
+      {/* <Input 
+        label="Título" 
+        onChangeText={value => this.setState({ title: value })} 
+        value={this.state.title} 
+      /> */}
       <DBPlayer link={this.path} />
       <View style={styles.actionButtonsContainer}>
         <Button text="CANCELAR" color="#dd4444" onPress={() => this.handleAction()} />

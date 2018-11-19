@@ -44,4 +44,11 @@ export default StyleSheet.create({
     fontSize: 18, 
     color: '#fff', 
   },
+  inputStyle: { 
+    marginBottom: 30, 
+    flex: 0,
+  },
+  labelStyle: { 
+    color: '#8E39AA', 
+  },
 })

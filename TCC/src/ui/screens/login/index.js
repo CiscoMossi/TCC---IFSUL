@@ -34,8 +34,8 @@ export class LoginScreen extends RootScreen {
 
   login = (email, password) => {
     userService.login(email, password)
-      .then(result => {
-        HttpService.registerToken(result.data.token)
+      .then(({ data }) => {
+        HttpService.registerToken(data.token, data.user._id)
         this.props.setLogged(true)
       })
   }

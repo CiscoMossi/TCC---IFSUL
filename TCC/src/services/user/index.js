@@ -2,7 +2,11 @@ import { BaseService } from '../base'
 
 export class UserService extends BaseService {
   constructor() {
-    super('http://10.0.0.103:3000')
+    super()
+  }
+
+  getUser(id) {
+    return super.get(`user/${id}`)
   }
 
   create(email, name, password) {
