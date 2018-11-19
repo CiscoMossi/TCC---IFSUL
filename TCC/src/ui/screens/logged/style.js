@@ -13,6 +13,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff', 
   },
   icon: { 
+    marginTop: 10,
     marginLeft: 15, 
     width: 40,
   },

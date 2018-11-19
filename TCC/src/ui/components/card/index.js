@@ -17,7 +17,7 @@ onSharePress = () => {}
 const Options = ({  }) => (
   <View style={styles.options}>
     <TouchableOpacity onPress={onLikePress} style={styles.option}>
-      <Image source={HANG_LOOSE} style={styles.hangLoose} />
+      <Image source={HANG_LOOSE.NORMAL} style={styles.hangLoose} />
       <Text style={styles.optionValue}>10</Text>
     </TouchableOpacity>
     <TouchableOpacity onPress={onCommentPress} style={styles.option}>

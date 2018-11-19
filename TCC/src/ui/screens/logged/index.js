@@ -94,7 +94,7 @@ export class LoggedScreen extends Component {
         <DBModal isVisible={!!this.state.modal}>
           <View style={styles.modal}>
             <TouchableOpacity style={styles.back} onPress={() => this.setState({ modal: null })}>
-              <Icon name="long-arrow-alt-left" size={50} style={styles.icon} />
+              <Icon name="arrow-left" size={30} style={styles.icon} />
             </TouchableOpacity>
             { this.state.modal }
           </View>

@@ -1,8 +1,8 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
-let { width } = Dimensions.get('screen')
+let { width } = Dimensions.get('window')
 
-width -= 50
+const ballSize = width*.7
 
 export default StyleSheet.create({
   wrapper: { 
@@ -20,8 +20,10 @@ export default StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.4,
     borderRadius: 600, 
-    width, 
-    height: width
+    width: ballSize, 
+    height: ballSize,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   description: { 
     marginBottom: 20, 
