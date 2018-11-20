@@ -66,19 +66,23 @@ export class BreatheScreen extends React.Component {
 
     return (
       <View style={styles.wrapper}>
-        <Text style={styles.description}>{ text }</Text>
+        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+          <Text style={styles.description}>{ text }</Text>
+        </View>
 
-        <TouchableWithoutFeedback onPress={this.handlePress}>
-          <AnimatedGradient 
-            style={[styles.ball, { transform: [{ scale: this.state.scaleAnimation }] }]}
-            start={{ x: 0.75, y: 0.25 }} 
-            end={{x: 0.25, y: 0.75}} 
-            locations={[0, 0.25, 0.5, 0.75]}
-            colors={gradientColors} 
-          >
-            <Text style={{ fontWeight: 'bold', fontSize: 25, color: '#fff' }}>{ this.state.actionText }</Text>
-          </AnimatedGradient>
-        </TouchableWithoutFeedback>
+        <View style={styles.ballWrapper}>
+          <TouchableWithoutFeedback onPress={this.handlePress}>
+            <AnimatedGradient 
+              style={[styles.ball, { transform: [{ scale: this.state.scaleAnimation }] }]}
+              start={{ x: 0.75, y: 0.25 }} 
+              end={{x: 0.25, y: 0.75}} 
+              locations={[0, 0.25, 0.5, 0.75]}
+              colors={gradientColors} 
+            >
+              <Text style={styles.actionText}>{ this.state.actionText }</Text>
+            </AnimatedGradient>
+          </TouchableWithoutFeedback>
+        </View>
       </View>
     )
   }

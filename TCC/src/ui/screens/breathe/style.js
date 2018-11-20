@@ -10,6 +10,10 @@ export default StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center' 
   },
+  ballWrapper: {
+    flex: 3, 
+    paddingTop: 40,
+  },
   ball: {
     shadowColor: '#000000',
     shadowOffset: {
@@ -27,6 +31,12 @@ export default StyleSheet.create({
   },
   description: { 
     marginBottom: 20, 
-    fontSize: 20 
+    fontSize: 20,
+    textAlignVertical: 'center'
+  },
+  actionText: { 
+    fontWeight: 'bold', 
+    fontSize: 25, 
+    color: '#fff' 
   },
 })
