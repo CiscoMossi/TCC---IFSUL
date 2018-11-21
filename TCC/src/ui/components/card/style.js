@@ -22,7 +22,10 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   textContent: { 
+    marginTop: 15,
+    marginLeft: 10,
     fontSize: 16,
+    alignSelf: 'flex-start'
   },
   options: { 
     flexShrink: 1, 
@@ -58,7 +61,7 @@ export default StyleSheet.create({
   userImage: { 
     width: 50, 
     height: 50, 
-    borderRadius: 100, 
+    borderRadius: 25, 
     borderColor: '#ddd', 
     borderWidth: 1 
   },

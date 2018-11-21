@@ -41,7 +41,7 @@ export class DBTextInput extends React.PureComponent {
   }
 
   isFieldEmpty = () =>
-    this.props.isForm ? !this.props.input.value : !this.props.value
+    !this.props.value
 
   isInputInvalid = () => {
     return this.props.isForm && this.props.meta.error && this.props.meta.touched
@@ -131,6 +131,7 @@ export class DBTextInput extends React.PureComponent {
       autoCapitalize,
       editable,
       selectTextOnFocus,
+      inputRef,
     } = this.props
     const inputStyleForComponent = { ...inputStyle }
     const labelStyleForComponent = { ...labelStyle }
@@ -161,7 +162,7 @@ export class DBTextInput extends React.PureComponent {
             underlineColorAndroid="transparent"
             style={[styles.input, inputStyleForComponent]}
             placeholder={placeholder}
-            placeholderTextColor="#e8e8e8"
+            placeholderTextColor="#8E39AA"
             onSubmitEditing={onSubmitEditing}
             onChangeText={onChangeText}
             secureTextEntry={secureTextEntry}
@@ -172,6 +173,7 @@ export class DBTextInput extends React.PureComponent {
             autoCapitalize={autoCapitalize}
             editable={editable}
             selectTextOnFocus={selectTextOnFocus}
+            ref={inputRef}
           />
           
           {this.renderRight(right, rightIconIfValid)}

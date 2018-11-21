@@ -14,9 +14,11 @@ export default StyleSheet.create({
     flex: 1,
     maxWidth: 75, 
     maxHeight: 75, 
-    borderRadius: 100, 
+    height: 75,
+    width: 75,
+    borderRadius: 37.5, 
     borderColor: '#aaa', 
-    borderWidth: 1 
+    borderWidth: 1, 
   },
   userName: { 
     flex: 1,

@@ -1,14 +1,18 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
-let { width } = Dimensions.get('screen')
+let { width } = Dimensions.get('window')
 
-width -= 50
+const ballSize = width*.7
 
 export default StyleSheet.create({
   wrapper: { 
     flex: 1, 
     justifyContent: 'center', 
     alignItems: 'center' 
+  },
+  ballWrapper: {
+    flex: 3, 
+    paddingTop: 40,
   },
   ball: {
     shadowColor: '#000000',
@@ -20,11 +24,19 @@ export default StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.4,
     borderRadius: 600, 
-    width, 
-    height: width
+    width: ballSize, 
+    height: ballSize,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   description: { 
     marginBottom: 20, 
-    fontSize: 20 
+    fontSize: 20,
+    textAlignVertical: 'center'
+  },
+  actionText: { 
+    fontWeight: 'bold', 
+    fontSize: 25, 
+    color: '#fff' 
   },
 })

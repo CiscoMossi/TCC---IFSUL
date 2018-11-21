@@ -50,7 +50,7 @@ export default StyleSheet.create({
   buttonOptions: { 
     flexDirection: 'row', 
     justifyContent: 'space-between', 
-    width: 85, 
+    width: 50, 
     height: 35,
     left: -20,
     top: 25,

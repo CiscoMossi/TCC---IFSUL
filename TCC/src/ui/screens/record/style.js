@@ -8,6 +8,8 @@ export default StyleSheet.create({
   wrapper: { 
     flex: 1, 
     justifyContent: 'center', 
+  },
+  recorderWrapper: {
     alignItems: 'center' 
   },
   ball: {
@@ -43,5 +45,12 @@ export default StyleSheet.create({
     fontWeight: 'bold', 
     fontSize: 18, 
     color: '#fff', 
+  },
+  inputStyle: { 
+    marginBottom: 30, 
+    flex: 0,
+  },
+  labelStyle: { 
+    color: '#8E39AA', 
   },
 })

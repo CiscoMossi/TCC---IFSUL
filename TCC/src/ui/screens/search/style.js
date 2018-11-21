@@ -1,11 +1,14 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const { height } = Dimensions.get('window')
+const isIphoneXOrBigger = height >= 812
 
 export default StyleSheet.create({
   userImage: {
     flexShrink: 1,
-    maxWidth: 50, 
-    maxHeight: 50, 
-    borderRadius: 100, 
+    width: 50, 
+    height: 50, 
+    borderRadius: 25, 
     borderColor: '#aaa', 
     borderWidth: 1 
   },
@@ -17,7 +20,8 @@ export default StyleSheet.create({
   inputWrapper: { 
     elevation: 3,
     borderRadius: 50, 
-    paddingHorizontal: 20 
+    paddingHorizontal: 20,
+    paddingVertical: 5,
   },
   input: { 
     color: '#fff', 
@@ -36,5 +40,21 @@ export default StyleSheet.create({
   topSide: { 
     flexShrink: 1, 
     paddingVertical: 25 
+  },
+  modal: { 
+    flex: 1,
+    backgroundColor: '#fff', 
+  },
+  icon: { 
+    marginTop: 10,
+    marginLeft: 15, 
+    width: 40,
+  },
+  back: {
+    position: 'absolute',
+    top: isIphoneXOrBigger ? 25 : 0,
+    zIndex: 1,
+    height: 50,
+    width: 70
   },
 })
