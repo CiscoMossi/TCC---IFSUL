@@ -8,6 +8,8 @@ export default StyleSheet.create({
   wrapper: { 
     flex: 1, 
     justifyContent: 'center', 
+  },
+  recorderWrapper: {
     alignItems: 'center' 
   },
   ball: {

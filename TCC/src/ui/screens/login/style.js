@@ -1,28 +1,33 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
-const { height } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window')
 const isIphoneXOrBigger = height >= 812
+const small = width < 375
 
 export default StyleSheet.create({
   wrapper: { 
-    flex: 1, 
-    padding: 30, 
-    paddingTop: 50,
+    flex: 1,
+    padding: small ? 15 : 30, 
+    paddingTop: small ? 20 : 50,
   },
   image: { 
-    alignSelf: 'center' 
+    alignSelf: 'center',
+    maxHeight: '40%',
+    flexShrink: 1,
   },
   inputStyle: { 
-    marginBottom: 30, 
+    marginBottom: small ? 10 : 30, 
     flex: 0,
   },
   labelStyle: { 
     color: '#8E39AA', 
+    fontSize: small ? 14 : 18,
   },
   button: { 
     borderRadius: 15, 
     marginTop: 20, 
-    flex: 1 
+    flex: 1,    
+    alignSelf: 'flex-end',
   },
   buttonText: { 
     color: '#fff', 
@@ -49,6 +54,7 @@ export default StyleSheet.create({
   link: { 
     alignSelf: 'center', 
     marginVertical: 30, 
+    flexShrink: 1,
   },
   linkText: { 
     color: '#8E39AA', 

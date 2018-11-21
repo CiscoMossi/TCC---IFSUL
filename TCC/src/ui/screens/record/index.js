@@ -35,7 +35,7 @@ export class RecordScreen extends React.Component {
     recording: false,
     currentTime: 0,
     confirmAudio: false,
-    title: 'Batata',
+    title: '',
   }
 
   handleOnProgress = ({ currentTime }) => {
@@ -85,7 +85,7 @@ export class RecordScreen extends React.Component {
     const duration = getCurrentTime(currentTime)
     
     return (
-      <View style={styles.wrapper}>
+      <View style={[styles.wrapper, styles.recorderWrapper]}>
         <Text style={styles.text}>Aperte para {action}</Text>
     
         <TouchableWithoutFeedback onPress={this.handleRecording}>
@@ -107,11 +107,11 @@ export class RecordScreen extends React.Component {
 
   renderConfirmBox = () => (
     <View style={[styles.wrapper, { paddingHorizontal: 20 }]}>
-      {/* <Input 
+      <Input 
         label="Título" 
         onChangeText={value => this.setState({ title: value })} 
         value={this.state.title} 
-      /> */}
+      />
       <DBPlayer link={this.path} />
       <View style={styles.actionButtonsContainer}>
         <Button text="CANCELAR" color="#dd4444" onPress={() => this.handleAction()} />

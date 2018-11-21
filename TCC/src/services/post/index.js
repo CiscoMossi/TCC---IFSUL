@@ -13,6 +13,14 @@ export class PostService extends BaseService {
     return super.get('feed', query)
   }
 
+  like(id) {
+    return super.post(`like/${id}`)
+  }
+
+  comment(id, content) {
+    return super.post(`post/comment/${id}`, { content })
+  }
+
   createPost(title, content) {
     return super.post('regular_post', { post: { title, content }})
   }
@@ -21,7 +29,11 @@ export class PostService extends BaseService {
     return super.post('meditation', { post: { title }})
   }
 
-  uploadMeditation({ path, name }) {
+  getMeditationAudio(id) {
+    return `${this.baseUrl}/meditationAudio/${id}`
+  }
+
+  uploadMeditation({ id, path, name }) {
     const formData = new FormData()
 
     if (Platform.OS === 'ios') {
@@ -42,6 +54,6 @@ export class PostService extends BaseService {
       } 
     }
 
-    return super.post('meditationAudio', formData, settings)
+    return super.post(`meditationAudio/${id}`, formData, settings)
   }
 }

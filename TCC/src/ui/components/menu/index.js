@@ -43,14 +43,16 @@ export class DBMenu extends React.Component {
         </View>
     
         <View style={styles.buttonWrapper}>
-          <View style={[styles.buttonOptions, this.state.buttonOptionsVisible && styles.visibleButtonOptions]}>
-            <DBButton onPress={onLeftButtonOptionPress} style={styles.buttonOption}>
-              <Icon size={20} color="#FFFFFF" name="microphone" />
-            </DBButton>
-            <DBButton onPress={onRightButtonOptionPress} style={styles.buttonOption}>
-              <Icon size={20} color="#FFFFFF" name="font" />
-            </DBButton>
-          </View>
+          { this.state.buttonOptionsVisible && (
+            <View style={[styles.buttonOptions, this.state.buttonOptionsVisible && styles.visibleButtonOptions]}>
+              <DBButton onPress={onLeftButtonOptionPress} style={[styles.buttonOption, { marginRight: 15 }]}>
+                <Icon size={20} color="#FFFFFF" name="microphone" />
+              </DBButton>
+              <DBButton onPress={onRightButtonOptionPress} style={styles.buttonOption}>
+                <Icon size={20} color="#FFFFFF" name="font" />
+              </DBButton>
+            </View>
+          )}
           <DBButton onPress={() => this.setState({ buttonOptionsVisible: !this.state.buttonOptionsVisible })} style={styles.button}>
             <Text style={styles.buttonContent}>+</Text>
           </DBButton>

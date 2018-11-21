@@ -1,8 +1,12 @@
 import { StyleSheet } from 'react-native'
+import { Dimensions } from 'react-native'
+
+const { height, width } = Dimensions.get('window')
+const small = width < 375
 
 export default StyleSheet.create({
   wrapper: { 
-    flex: 1, 
+    height,
     padding: 30, 
     paddingTop: 50,
   },
@@ -12,6 +16,7 @@ export default StyleSheet.create({
   },
   labelStyle: { 
     color: '#8E39AA', 
+    fontSize: small ? 14 : 18,
   },
   button: { 
     borderRadius: 15, 

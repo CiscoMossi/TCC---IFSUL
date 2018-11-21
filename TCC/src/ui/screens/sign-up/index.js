@@ -3,6 +3,8 @@ import { View, Text } from 'react-native'
 import { DBButton, DBTextInput } from '../../components'
 import styles from './style'
 
+import fs from 'react-native-fs'
+
 import { UserService } from '../../../services'
 
 const Input = ({ onChangeText, label, value }) => (

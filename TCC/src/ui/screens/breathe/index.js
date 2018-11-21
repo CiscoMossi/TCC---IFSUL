@@ -46,10 +46,12 @@ export class BreatheScreen extends React.Component {
         })
 
         this.animation.start(() => {
-          this.setState({ actionText: '' })
-          this.animation = null
+          this.setState({ actionText: 'DESCANSE' })
           if (this.state.animating) {
-            this.animate()
+            setTimeout(() => {
+              this.animation = null
+              this.animate()
+            }, 1000)
           }
         })
       })

@@ -10,7 +10,7 @@ import { RootScreen, SignUpScreen } from '../../screens'
 
 import { UserService, HttpService } from '../../../services'
 
-const Input = ({ onChangeText, label, value }) => (
+const Input = ({ onChangeText, label, value, secureTextEntry }) => (
   <DBTextInput 
     containerStyle={styles.inputStyle} 
     labelStyle={styles.labelStyle} 
@@ -20,6 +20,7 @@ const Input = ({ onChangeText, label, value }) => (
     onChangeText={onChangeText} 
     label={label}
     value={value}
+    secureTextEntry={secureTextEntry}
   />
 )
 
@@ -36,7 +37,7 @@ export class LoginScreen extends RootScreen {
     userService.login(email, password)
       .then(({ data }) => {
         HttpService.registerToken(data.token, data.user._id)
-        this.props.setLogged(true)
+        this.props.setLogged(true, data.user)
       })
   }
 
@@ -50,10 +51,10 @@ export class LoginScreen extends RootScreen {
 
     return (
       <React.Fragment>
-        <Image style={styles.image} source={LOGO} />
+        <Image style={styles.image} source={LOGO} resizeMode="contain" />
 
         <TouchableOpacity style={styles.link} onPress={() => this.setState({ modal: true })}>
-          <Text style={styles.linkText}>Não possui uma conta ainda? Cadastrar.</Text>
+          <Text style={styles.linkText}>Não possui uma conta ainda? Cadastrar</Text>
         </TouchableOpacity>
 
         <View style={{ flex: 1 }}>
@@ -67,6 +68,7 @@ export class LoginScreen extends RootScreen {
             value={password}
             onChangeText={value => this.setState({ password: value })} 
             label="Senha"  
+            secureTextEntry
           />
         </View>
 

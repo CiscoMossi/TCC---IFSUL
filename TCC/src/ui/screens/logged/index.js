@@ -51,7 +51,7 @@ const getMenuItems = props => [
     icon: 'user', 
     label: 'Perfil', 
     title: 'Perfil',
-    content: <ProfileScreen { ...props } />
+    content: <ProfileScreen user={props.getLoggedUser()} { ...props } />
   },
 ]
 
@@ -70,7 +70,7 @@ export class LoggedScreen extends Component {
 
   createMeditation = async (title, path, name) => {
     const { data } = await postService.createMeditation(title)
-    const result = await postService.uploadMeditation({ path, name })
+    const result = await postService.uploadMeditation({ id: data, path, name })
     this.setState({ modal: null })
 
     return

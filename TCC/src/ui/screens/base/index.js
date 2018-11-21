@@ -12,8 +12,8 @@ export class RootScreen extends React.Component {
     user: null,
   }
 
-  setLogged = logged => {
-    this.setState({ logged })
+  setLogged = (logged, user) => {
+    this.setState({ logged, user })
   } 
 
   getLoggedUser = () => this.state.user
