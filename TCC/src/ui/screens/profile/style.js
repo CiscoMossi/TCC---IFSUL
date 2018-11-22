@@ -27,6 +27,6 @@ export default StyleSheet.create({
   },
   feedWrapper: { 
     flex: 1, 
-    paddingVertical: 20 
+    paddingVertical: 20
   },
 })

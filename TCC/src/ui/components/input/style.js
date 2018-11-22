@@ -35,7 +35,6 @@ export default StyleSheet.create({
   feedbackMessages: {
     flexDirection: 'row-reverse',
     flexWrap: 'wrap',
-    flex: 1,
     marginTop: 12,
   },
 })

@@ -13,6 +13,7 @@
     "react-native": "0.57.4",
     "react-native-audio": "^4.2.2",
     "react-native-fs": "^2.12.1",
+    "react-native-image-picker": "^0.27.1",
     "react-native-linear-gradient": "^2.4.3",
     "react-native-modal": "^7.0.0",
     "react-native-permissions": "^1.1.1",

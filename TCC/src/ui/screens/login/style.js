@@ -9,6 +9,7 @@ export default StyleSheet.create({
     flex: 1,
     padding: small ? 15 : 30, 
     paddingTop: small ? 20 : 50,
+    backgroundColor: '#e8e8e8'
   },
   image: { 
     alignSelf: 'center',

@@ -69,6 +69,7 @@ export class RecordScreen extends React.Component {
     confirm && await this.props.onConfirm(this.state.title, this.path, this.fileName)
 
     this.recorder.deleteAudio()
+    this.setState({ confirmAudio: false })
   }
 
   renderRecorder = () => {

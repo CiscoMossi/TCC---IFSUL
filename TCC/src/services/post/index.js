@@ -21,6 +21,10 @@ export class PostService extends BaseService {
     return super.post(`post/comment/${id}`, { content })
   }
 
+  share(id) {
+    return super.post(`post/share/${id}`)
+  }
+
   createPost(title, content) {
     return super.post('regular_post', { post: { title, content }})
   }
