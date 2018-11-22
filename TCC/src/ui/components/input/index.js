@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Animated, TextInput } from 'react-native'
+import { View, Animated, TextInput, Text } from 'react-native'
 
 import styles from './style'
 
@@ -180,7 +180,11 @@ export class DBTextInput extends React.PureComponent {
           {this.renderRight(right, rightIconIfValid)}
         </View>
 
-        {help && <View style={styles.feedbackMessages}>{help}</View>}
+        {help && 
+          <View style={styles.feedbackMessages}>
+            <Text style={{ color: borderColor, flex: 1 }}>{help}</Text>
+          </View>
+        }
       </View>
     )
   }

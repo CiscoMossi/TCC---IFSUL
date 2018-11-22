@@ -1,16 +1,15 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import { DBButton, DBTextInput, DBModal } from '../../components'
+import { DBButton, DBTextInput, DBScreenWrapper } from '../../components'
 import { LOGO } from '../../../../assets/images'
 import styles from './style'
-
-import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import { RootScreen, SignUpScreen } from '../../screens'
 
 import { UserService, HttpService } from '../../../services'
+import moment from 'moment'
 
-const Input = ({ onChangeText, label, value, secureTextEntry }) => (
+const Input = ({ onChangeText, label, value, secureTextEntry, invalid, help }) => (
   <DBTextInput 
     containerStyle={styles.inputStyle} 
     labelStyle={styles.labelStyle} 
@@ -21,6 +20,8 @@ const Input = ({ onChangeText, label, value, secureTextEntry }) => (
     label={label}
     value={value}
     secureTextEntry={secureTextEntry}
+    invalid={invalid}
+    help={help}
   />
 )
 
@@ -31,13 +32,20 @@ export class LoginScreen extends RootScreen {
     email: '',
     password: '',
     modal: false,
+    wrongPassword: false,
   }
 
   login = (email, password) => {
     userService.login(email, password)
       .then(({ data }) => {
-        HttpService.registerToken(data.token, data.user._id)
+        const expireDate = moment().add(data.expires, 'milliseconds')
+        HttpService.registerToken(data.token, data.user._id, expireDate)
         this.props.setLogged(true, data.user)
+      })
+      .catch(err => {
+        if(err.response.data === 'Authentication error') {
+          this.setState({ wrongPassword: true })
+        }
       })
   }
 
@@ -47,7 +55,7 @@ export class LoginScreen extends RootScreen {
   }
 
   renderScreen = () => {
-    const { email, password } = this.state
+    const { email, password, wrongPassword } = this.state
 
     return (
       <React.Fragment>
@@ -61,7 +69,8 @@ export class LoginScreen extends RootScreen {
           <Input 
             value={email}
             onChangeText={value => this.setState({ email: value })} 
-            label="Email"  
+            label="Email"
+            invalid={wrongPassword}
           />
 
           <Input 
@@ -69,6 +78,8 @@ export class LoginScreen extends RootScreen {
             onChangeText={value => this.setState({ password: value })} 
             label="Senha"  
             secureTextEntry
+            invalid={wrongPassword}
+            help={wrongPassword ? "Senha incorreta" : null}
           />
         </View>
 
@@ -81,14 +92,9 @@ export class LoginScreen extends RootScreen {
 
   renderSignUpModal = () => {
     return (
-      <DBModal isVisible={!!this.state.modal}>
-        <View style={styles.modal}>
-          <TouchableOpacity style={styles.back} onPress={() => this.setState({ modal: false })}>
-            <Icon name="arrow-left" size={30} style={styles.icon} />
-          </TouchableOpacity>
-          <SignUpScreen onSubmit={this.login} />
-        </View>
-      </DBModal>
+      <DBScreenWrapper visible={!!this.state.modal} onBack={() => this.setState({ modal: false })}>
+        <SignUpScreen onSubmit={this.login} />
+      </DBScreenWrapper>
     )
   }
 

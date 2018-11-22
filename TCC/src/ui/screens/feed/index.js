@@ -99,34 +99,34 @@ export class Feed extends Component {
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
           { posts.length > 0 ?
               posts.map((post, index) => {
-              const sharedPost = post.shared[0]
+                const sharedPost = post.shared[0]
 
-              const postProps = {
-                id: post._id,
-                text: post.content,
-                user: post.user,
-                date: post.createdAt,
-                likes: post.likes,
-                comments: post.comments,
-                onLike: this.like,
-                onComment: this.showComments,
-                onShare: this.share,
-                sharedPost
-              }
+                const postProps = {
+                  id: post._id,
+                  text: post.content,
+                  user: post.user,
+                  date: post.createdAt,
+                  likes: post.likes,
+                  comments: post.comments,
+                  onLike: this.like,
+                  onComment: this.showComments,
+                  onShare: this.share,
+                  sharedPost
+                }
 
-              if (post.type === 'MEDITATION' || (sharedPost && sharedPost.type === 'MEDITATION')) {
-                postProps.link = sharedPost ? postService.getMeditationAudio(sharedPost._id) : postService.getMeditationAudio(post._id)
-                postProps.title = sharedPost ? sharedPost.title : post.title
-              }
+                if (post.type === 'MEDITATION' || (sharedPost && sharedPost.type === 'MEDITATION')) {
+                  postProps.link = sharedPost ? postService.getMeditationAudio(sharedPost._id) : postService.getMeditationAudio(post._id)
+                  postProps.title = sharedPost ? sharedPost.title : post.title
+                }
 
-              return (
-                <DBCard 
-                  { ...postProps }
-                  key={index}
-                  style={this.isLastCard(index) && styles.lastItem}
-                />
-              )
-            })
+                return (
+                  <DBCard 
+                    { ...postProps }
+                    key={index}
+                    style={this.isLastCard(index) && styles.lastItem}
+                  />
+                )
+              })
             : <Text style={{ fontSize: 18, textAlign: 'center', marginTop: 20 }}>Sem posts para você ver aqui :(</Text>
           }
         </ScrollView>
