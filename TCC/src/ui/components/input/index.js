@@ -132,6 +132,7 @@ export class DBTextInput extends React.PureComponent {
       editable,
       selectTextOnFocus,
       inputRef,
+      invalid
     } = this.props
     const inputStyleForComponent = { ...inputStyle }
     const labelStyleForComponent = { ...labelStyle }
@@ -139,7 +140,7 @@ export class DBTextInput extends React.PureComponent {
     let labelMessage = label
     let borderColor = this.state.isFocused ? onFocusColor : onBlurBorderColor
 
-    if (this.isInputInvalid()) {
+    if (invalid) {
       borderColor = inputStyleForComponent.color = labelStyleForComponent.color = "#ff0000"
     }
 
@@ -149,7 +150,7 @@ export class DBTextInput extends React.PureComponent {
           style={[
             styles.section,
             sectionStyle,
-            { borderBottomColor: borderColor || '' },
+            { borderBottomColor: borderColor },
           ]}
         >
           {label &&

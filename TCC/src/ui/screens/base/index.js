@@ -4,6 +4,8 @@ import { View } from 'react-native'
 import { LoggedScreen, LoginScreen } from '../../screens'
 import { StorageService, UserService, HttpService } from '../../../services'
 
+import moment from 'moment'
+
 const userService = new UserService()
 
 export class RootScreen extends React.Component {
@@ -16,16 +18,15 @@ export class RootScreen extends React.Component {
     this.setState({ logged, user })
   } 
 
-  getLoggedUser = () => this.state.user
-
   async componentDidMount() {
-    const [token, userId] = await Promise.all([
+    const [token, userId, expireDate] = await Promise.all([
       StorageService.getString(HttpService.AUTHORIZATION_NAME),
-      StorageService.getString(HttpService.USER_ID)
+      StorageService.getString(HttpService.USER_ID),
+      StorageService.getString(HttpService.EXPIRE_DATE),
     ])
 
     const newState = {
-      logged: !!token,
+      logged: !!token && moment(expireDate) > moment(),
     }
 
     if (userId) {
@@ -46,7 +47,7 @@ export class RootScreen extends React.Component {
 
     const screenProps = {
       setLogged: this.setLogged,
-      getLoggedUser: this.getLoggedUser,
+      loggedUser: this.state.user,
     }
 
     return (

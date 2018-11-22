@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity } from 'react-native'
-import { DBSafeAreaView, DBMenu, DBModal } from '../../components'
+import { View } from 'react-native'
+import { DBSafeAreaView, DBMenu, DBScreenWrapper } from '../../components'
 import { HomeScreen } from '../home'
 import { ProfileScreen } from '../profile'
 import { BreatheScreen } from '../breathe'
@@ -9,8 +9,6 @@ import { RecordScreen } from '../record'
 import { CreatePostScreen } from '../create-post'
 
 import { PostService } from '../../../services'
-
-import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import styles from './style'
 
@@ -51,7 +49,7 @@ const getMenuItems = props => [
     icon: 'user', 
     label: 'Perfil', 
     title: 'Perfil',
-    content: <ProfileScreen user={props.getLoggedUser()} { ...props } />
+    content: <ProfileScreen user={props.loggedUser} { ...props } />
   },
 ]
 
@@ -59,6 +57,12 @@ export class LoggedScreen extends Component {
   state = {
     currentMenu: getMenuItems(this.props)[0],
     modal: null,
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.loggedUser.name !== this.props.loggedUser.name) {
+      this.setState({ currentMenu: this.state.currentMenu })
+    }
   }
 
   createPost = (title, content) => {
@@ -91,14 +95,9 @@ export class LoggedScreen extends Component {
           onLeftButtonOptionPress={() => this.setState({ modal: <RecordScreen onConfirm={this.createMeditation} /> })}
           onRightButtonOptionPress={() => this.setState({ modal: <CreatePostScreen submit={this.createPost} /> })}
         />
-        <DBModal isVisible={!!this.state.modal}>
-          <View style={styles.modal}>
-            <TouchableOpacity style={styles.back} onPress={() => this.setState({ modal: null })}>
-              <Icon name="arrow-left" size={30} style={styles.icon} />
-            </TouchableOpacity>
-            { this.state.modal }
-          </View>
-        </DBModal>
+        <DBScreenWrapper visible={!!this.state.modal} onBack={() => this.setState({ modal: null })}>
+          { this.state.modal }
+        </DBScreenWrapper>
       </View>
     )
   }

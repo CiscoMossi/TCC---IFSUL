@@ -1,5 +1,4 @@
 import { BaseService } from '../base'
-import { Platform } from 'react-native'
 
 export class UserService extends BaseService {
   constructor() {
@@ -18,22 +17,19 @@ export class UserService extends BaseService {
     return super.get(`user/${id}`)
   }
 
+  getUserPosts(userId) {
+    return super.get(`user/posts/${userId}`)
+  }
+
   getUserImage(id) {
     return `${this.baseUrl}/asset/${id}`
   }
 
-  uploadUserImage(path) {
+  uploadUserImage(uri) {
     const formData = new FormData()
-
-    if (Platform.OS === 'ios') {
-      const split = path.split('/')
-      const dir = fs.DocumentDirectoryPath
-      path = `${dir}/${split[split.length - 1]}`
-    }
-
     
     formData.append('file', {
-      uri: path,
+      uri,
       name: 'profile.jpeg',
       type: 'image/jpeg'
     })
@@ -49,6 +45,10 @@ export class UserService extends BaseService {
 
   create(email, name, password) {
     return super.unauthenticatedPost('createUser', { user: { email, name, password }})
+  }
+
+  edit(email, name, password) {
+    return super.post('user/update', { email, name, password })
   }
 
   login(email, password) {

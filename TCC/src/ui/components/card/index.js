@@ -23,7 +23,7 @@ class Options extends React.Component {
   }
 
   render() {
-    const { postId, likes, comments, userId, onLike, onComment } = this.props
+    const { postId, likes, comments, userId, onLike, onComment, onShare } = this.props
     const liked = likes.map(({ user }) => user).includes(userId)
 
     return (
@@ -36,7 +36,7 @@ class Options extends React.Component {
           <Icon size={20} name="comment-alt" />
           <Text style={styles.optionValue}>{comments.length}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} style={styles.option}>
+        <TouchableOpacity onPress={() => onShare(postId)} style={styles.option}>
           <Icon size={20} name="share" />
         </TouchableOpacity>
       </View>
@@ -60,16 +60,23 @@ const PostInfo = ({ user, date }) => {
   )
 }
 
-export const DBCard = ({ style, link, text, title, user, date, id, likes, comments, onLike, onComment }) => (
-  <View style={[styles.card, style]}>
-    <PostInfo user={user} date={date} />
-    <View style={styles.content}>
-      { title && <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold' }}>{title}</Text> }
-      { link 
-        ? <DBPlayer link={link} />
-        : <TextContent text={text} />
-      }
+export const DBCard = ({ style, link, text, title, user, date, id, likes, comments, onLike, onComment, onShare, sharedPost }) => {
+  if (!!sharedPost) {
+    text = sharedPost.content
+  }
+
+  return (
+    <View style={[styles.card, style]}>
+      { !!sharedPost && <Text style={{ fontSize: 15, marginBottom: 10 }}>Compartilhado por {user.name} </Text> }
+      <PostInfo user={sharedPost ? sharedPost.user : user} date={date} />
+      <View style={styles.content}>
+        { title && <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold' }}>{title}</Text> }
+        { link 
+          ? <DBPlayer link={link} />
+          : <TextContent text={text} />
+        }
+      </View>
+      <Options likes={likes} comments={comments} onLike={onLike} onComment={onComment} onShare={onShare} userId={user._id} postId={id} />
     </View>
-    <Options likes={likes} comments={comments} onLike={onLike} onComment={onComment} userId={user._id} postId={id} />
-  </View>
-)
+  )
+}
