@@ -16,13 +16,13 @@ import { BREATHE } from '../../../../assets/images'
 
 const postService = new PostService()
 
-const getMenuItems = props => [
+const menuItems = [
   { 
     id: 0, 
     icon: 'home', 
     label: 'Home',
     title: 'Home',
-    content: <HomeScreen { ...props } />,
+    content: HomeScreen,
   }, 
   { 
     id: 1, 
@@ -35,28 +35,34 @@ const getMenuItems = props => [
     },
     label: 'Respire', 
     title: 'Respire',
-    content: <BreatheScreen { ...props } />
+    content: BreatheScreen
   },
   { 
     id: 2, 
     icon: 'search', 
     label: 'Encontrar', 
     title: 'Encontrar',
-    content: <SearchScreen { ...props } />
+    content: SearchScreen
   },
   { 
     id: 3, 
     icon: 'user', 
     label: 'Perfil', 
     title: 'Perfil',
-    content: <ProfileScreen user={props.loggedUser} { ...props } />
+    content: ProfileScreen
   },
 ]
 
 export class LoggedScreen extends Component {
   state = {
-    currentMenu: getMenuItems(this.props)[0],
+    currentMenu: menuItems[0],
     modal: null,
+    feed: [],
+    update: false,
+  }
+
+  async componentDidMount() {
+    await this.getFeed()
   }
 
   componentDidUpdate(prevProps) {
@@ -65,33 +71,47 @@ export class LoggedScreen extends Component {
     }
   }
 
-  createPost = (title, content) => {
+  getFeed = async () => {
+    const { _id } = this.props.loggedUser
+    const result = await postService.getFeed(_id)
+    this.setState({ feed: result.data.docs, update: !this.state.update, modal: null })
+  }
+
+  createPost = async (title, content) => {
     postService.createPost(title, content)
-      .then(result => {
-        this.setState({ modal: null })
-      })
+    await this.getFeed()
   }
 
   createMeditation = async (title, path, name) => {
     const { data } = await postService.createMeditation(title)
     const result = await postService.uploadMeditation({ id: data, path, name })
-    this.setState({ modal: null })
+    await this.getFeed()
 
     return
   }
 
   render() {
+    const Content = this.state.currentMenu.content
+
+    const contentProps = {
+      ...this.props,
+      user: this.props.loggedUser,
+      feed: this.state.feed,
+      refreshFeed: this.getFeed,
+      update: this.state.update,
+    }
+
     return (
       <View style={{ flex: 1 }}>
         <DBSafeAreaView>
           <View style={styles.container}>
-            { this.state.currentMenu.content }
+            <Content { ...contentProps } />
           </View>
         </DBSafeAreaView>
         <DBMenu 
           onMenuOptionPress={option => this.setState({ currentMenu: option })} 
           activeMenuId={this.state.currentMenu.id} 
-          menus={getMenuItems(this.props)} 
+          menus={menuItems} 
           onLeftButtonOptionPress={() => this.setState({ modal: <RecordScreen onConfirm={this.createMeditation} /> })}
           onRightButtonOptionPress={() => this.setState({ modal: <CreatePostScreen submit={this.createPost} /> })}
         />
