@@ -49,6 +49,7 @@ export class SignUpScreen extends React.Component {
     emailInvalid: false,
     passwordInvalid: false,
     passwordConfirmationInvalid: false,
+    invalidMailMessage: 'Email inválido'
   }
 
   formInvalid = () => {
@@ -59,7 +60,8 @@ export class SignUpScreen extends React.Component {
       nameInvalid: !isEdit && !name,
       emailInvalid: email && !validEmail(email),
       passwordInvalid: !isEdit && !password,
-      passwordConfirmationInvalid: passwordConfirmation !== password
+      passwordConfirmationInvalid: passwordConfirmation !== password,
+      invalidMailMessage: 'Email inválido'
     }
 
     this.setState(newState)
@@ -72,16 +74,20 @@ export class SignUpScreen extends React.Component {
     const { isEdit } = this.props
 
     if(!this.formInvalid()) {
-      if(image) {
-        userService.uploadUserImage(image.uri)
-      }
-
       const request = isEdit ? userService.edit : userService.create
   
       userService.signUpRequest = request
   
       userService.signUpRequest(email, name, password).then(result => {
         this.props.onSubmit(email, password)
+
+        if(image) {
+          userService.uploadUserImage(image.uri)
+        }
+      }).catch(err => {
+        if(err.response.status === 400){
+          this.setState({ emailInvalid: true, invalidMailMessage: 'Email já cadastrado' })
+        }
       })
     }
   }
@@ -119,7 +125,7 @@ export class SignUpScreen extends React.Component {
   }
 
   render() {
-    const { image, name, nameInvalid, email, emailInvalid, password, passwordInvalid, passwordConfirmation, passwordConfirmationInvalid } = this.state
+    const { image, name, nameInvalid, email, emailInvalid, password, passwordInvalid, passwordConfirmation, passwordConfirmationInvalid, invalidMailMessage } = this.state
     const { isEdit } = this.props
 
     return (
@@ -134,7 +140,7 @@ export class SignUpScreen extends React.Component {
 
           <Input 
             onChangeText={this.handleEmail} 
-            label={emailInvalid ? "Email inválido" : "Email"}
+            label={emailInvalid ? invalidMailMessage : "Email"}
             value={email}
             invalid={emailInvalid}
           />
