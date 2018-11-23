@@ -74,18 +74,20 @@ export class LoggedScreen extends Component {
   getFeed = async () => {
     const { _id } = this.props.loggedUser
     const result = await postService.getFeed(_id)
-    this.setState({ feed: result.data.docs, update: !this.state.update, modal: null })
+    this.setState({ feed: result.data.docs, update: !this.state.update })
   }
 
   createPost = async (title, content) => {
     postService.createPost(title, content)
     await this.getFeed()
+    this.setState({ modal: null })
   }
 
   createMeditation = async (title, path, name) => {
     const { data } = await postService.createMeditation(title)
     const result = await postService.uploadMeditation({ id: data, path, name })
     await this.getFeed()
+    this.setState({ modal: null })
 
     return
   }

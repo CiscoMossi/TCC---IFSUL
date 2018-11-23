@@ -66,6 +66,10 @@ export class RecordScreen extends React.Component {
   }
 
   handleAction = async (confirm) => {
+    if (!this.state.title) {
+      return
+    }
+
     confirm && await this.props.onConfirm(this.state.title, this.path, this.fileName)
 
     this.recorder.deleteAudio()
@@ -109,7 +113,7 @@ export class RecordScreen extends React.Component {
   renderConfirmBox = () => (
     <View style={[styles.wrapper, { paddingHorizontal: 20 }]}>
       <Input 
-        label="Título" 
+        label="Título*" 
         onChangeText={value => this.setState({ title: value })} 
         value={this.state.title} 
       />

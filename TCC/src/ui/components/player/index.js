@@ -9,25 +9,28 @@ import Sound from 'react-native-sound'
 
 export class DBPlayer extends Component {
   state = {
+    sound: null,
     playing: false,
     audioPercentage: 0
   }
 
   play = () => {
-    this.sound.play(success => {
+    this.state.sound.play(success => {
       if (success) {
         clearInterval(this.interval)
-        this.sound.setCurrentTime(0)
-        this.setState({ playing: false, audioPercentage: 0 })
+        this.state.sound.setCurrentTime(0)
+        this.setState({ playing: false, audioPercentage: 0, sound: null })
         return
       }
     })
 
     this.interval = setInterval(() => {
-      this.sound.getCurrentTime(currentTime => {
-        const audioPercentage = currentTime/this.sound.getDuration()*100
-
-        this.setState({ audioPercentage })
+      this.state.sound.getCurrentTime(currentTime => {
+        if(this.state.sound) {
+          const audioPercentage = currentTime/this.state.sound.getDuration()*100
+  
+          this.setState({ audioPercentage })
+        }
       })
     })
   }
@@ -38,24 +41,26 @@ export class DBPlayer extends Component {
         Sound.enable(true);
       }
 
-      if (this.sound) {
+      if (this.state.sound) {
         this.play()
         return
       }
 
-      this.sound = new Sound(this.props.link, '', (error) => {
+      const sound = new Sound(this.props.link, '', (error) => {
         if (error) {
           alert(error)
         } else {
-          this.sound.setVolume(1)
+          this.state.sound.setVolume(1)
           this.play()
         }
       })
+
+      this.setState({ sound })
     }, 100)
   }
 
   handlePause = () => {
-    this.sound.pause()
+    this.state.sound.pause()
     clearInterval(this.interval)
   }
 
