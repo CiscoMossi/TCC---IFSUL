@@ -15,7 +15,7 @@ const options = {
   },
 }
 
-const Input = ({ onChangeText, label, value, invalid }) => (
+const Input = ({ onChangeText, label, value, invalid, autoCapitalize, secureTextEntry }) => (
   <DBTextInput 
     containerStyle={styles.inputStyle} 
     labelStyle={styles.labelStyle} 
@@ -26,8 +26,11 @@ const Input = ({ onChangeText, label, value, invalid }) => (
     invalid={invalid}
     float 
     onChangeText={onChangeText} 
+    autoCapitalize={autoCapitalize}
     label={label}
     value={value}
+    autoCorrect={false}
+    secureTextEntry={secureTextEntry}
   />
 )
 
@@ -142,6 +145,7 @@ export class SignUpScreen extends React.Component {
             onChangeText={this.handleEmail} 
             label={emailInvalid ? invalidMailMessage : "Email"}
             value={email}
+            autoCapitalize="none"
             invalid={emailInvalid}
           />
 
@@ -149,14 +153,18 @@ export class SignUpScreen extends React.Component {
             onChangeText={this.handlePassword} 
             label={passwordInvalid ? "Senha inválida" : "Senha"}
             value={password}  
+            autoCapitalize="none"
             invalid={passwordInvalid}
+            secureTextEntry
           />
 
           <Input 
             onChangeText={this.handlePasswordConfirmation} 
             label={passwordConfirmationInvalid ? "Confirmação de Senha inválida" : "Confirmação de Senha"}
             value={passwordConfirmation}
+            autoCapitalize="none"
             invalid={passwordConfirmationInvalid}
+            secureTextEntry
           />
         </View>
         

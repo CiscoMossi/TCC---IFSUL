@@ -66,7 +66,7 @@ export class RecordScreen extends React.Component {
   }
 
   handleAction = async (confirm) => {
-    if (!this.state.title) {
+    if (!this.state.title && confirm) {
       return
     }
 

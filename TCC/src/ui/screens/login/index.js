@@ -9,7 +9,7 @@ import { RootScreen, SignUpScreen } from '../../screens'
 import { UserService, HttpService } from '../../../services'
 import moment from 'moment'
 
-const Input = ({ onChangeText, label, value, secureTextEntry, invalid, help }) => (
+const Input = ({ onChangeText, label, value, secureTextEntry, invalid, help, autoCapitalize }) => (
   <DBTextInput 
     containerStyle={styles.inputStyle} 
     labelStyle={styles.labelStyle} 
@@ -22,6 +22,8 @@ const Input = ({ onChangeText, label, value, secureTextEntry, invalid, help }) =
     secureTextEntry={secureTextEntry}
     invalid={invalid}
     help={help}
+    autoCorrect={false}
+    autoCapitalize={autoCapitalize}
   />
 )
 
@@ -70,6 +72,7 @@ export class LoginScreen extends RootScreen {
             value={email}
             onChangeText={value => this.setState({ email: value })} 
             label="Email"
+            autoCapitalize="none"            
             invalid={wrongPassword}
           />
 
